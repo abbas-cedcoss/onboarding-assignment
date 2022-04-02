@@ -1,11 +1,11 @@
 import React, { useReducer } from 'react'
-import { onboardingStates } from './onboardingHelper';
+import { onboardingStates, validator } from './onboardingHelper';
 import Stepone from './onboardingsteps/stepone';
 import Stepthree from './onboardingsteps/Stepthree';
 import Steptwo from './onboardingsteps/Steptwo';
 import Stepfour from './onboardingsteps/Stepfour';
 import Stepsrenderer from './onboardingsteps/Stepsrenderer';
-import { Col, Image, Row, Form, Button } from 'antd';
+import { Col, Image, Row, Form, Button, message } from 'antd';
 import eden_logo from '../../assets/images/eden_logo.png';
 import { reducer } from './reducer';
 
@@ -51,7 +51,11 @@ function Onboarding() {
           {getStep()}
           <Form.Item>
             <Button block type="primary" onClick={() => {
-              stateHandler('currentStep');
+              let { errors } = validator(state['currentStep'], state);
+              let errorPrompt = Object.values(errors).some(value => value);
+              if (!errorPrompt)
+                stateHandler('currentStep');
+              else message.error('Please enter required values ')
             }}>
               {state['currentStep'] === 3 ? 'Launch Eden' : 'Create workspace'}
             </Button>

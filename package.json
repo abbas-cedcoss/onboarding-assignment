@@ -1,7 +1,6 @@
 {
   "name": "onboarding-assignment",
   "version": "0.1.0",
-  "homepage": "https://abbas-cedcoss.github.io",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
