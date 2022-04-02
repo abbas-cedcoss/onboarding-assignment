@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
 import { onboardingStates } from './onboardingHelper';
 import Stepone from './onboardingsteps/stepone';
 import Stepthree from './onboardingsteps/Stepthree';
@@ -7,27 +7,38 @@ import Stepfour from './onboardingsteps/Stepfour';
 import Stepsrenderer from './onboardingsteps/Stepsrenderer';
 import { Col, Image, Row, Form, Button } from 'antd';
 import eden_logo from '../../assets/images/eden_logo.png';
+import { reducer } from './reducer';
 
 function Onboarding() {
+  const [state, dispatch] = useReducer(reducer, onboardingStates);
 
-  const [state, setStates] = useState(onboardingStates);
-
-  function updateState(stepType = '', value = 0, data = {}) {
-    let tempStates = { ...state };
-    tempStates[stepType] = tempStates[stepType] + 1;
-    setStates({ ...tempStates });
+  function stateHandler(field = '', subfield = '', metafield = '', value = '', action_type, ...rest) {
+    if (subfield !== '') {
+      dispatch({
+        type: action_type,
+        payload: {
+          subfield: subfield,
+          metafield: metafield,
+          value: value,
+          rest: rest
+        }
+      });
+    }
+    else {
+      dispatch({ type: field, payload: value });
+    }
   }
 
   function getStep() {
     switch (state['currentStep']) {
       case 0:
-        return <Stepone />
+        return <Stepone onChange={stateHandler.bind(this, 'steps', 'stepOne')} />
       case 1:
-        return <Steptwo />
+        return <Steptwo onChange={stateHandler.bind(this, 'steps', 'stepTwo')} />
       case 2:
         return <Stepthree />
       case 3:
-        return <Stepfour />
+        return <Stepfour {...state} />
       default:
         break;
     }
@@ -40,9 +51,9 @@ function Onboarding() {
           {getStep()}
           <Form.Item>
             <Button block type="primary" onClick={() => {
-              updateState('currentStep', 1);
+              stateHandler('currentStep');
             }}>
-              Create workspace
+              {state['currentStep'] === 3 ? 'Launch Eden' : 'Create workspace'}
             </Button>
           </Form.Item>
         </Form>
@@ -60,7 +71,6 @@ function Onboarding() {
           <Col span={22}>
             <Stepsrenderer
               currentStep={state['currentStep']}
-              renderer={<p>HEllo</p>}
             />
           </Col>
           <Col span={24}>

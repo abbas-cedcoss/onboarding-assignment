@@ -3,7 +3,8 @@ import React from 'react';
 import checked from '../../../assets/images/checked.png';
 const { Title, Text } = Typography;
 
-function Stepfour() {
+function Stepfour(props) {
+  let { fullname } = props.steps.stepOne;
   return (
     <React.Fragment>
       <Row justify='center' align='middle'>
@@ -14,8 +15,8 @@ function Stepfour() {
         </Row>
         <Row justify='center' align='middle'>
           <Col span={24}>
-            <Title level={2}><b>Congratulations, Eren</b></Title>
-            <Text type='secondary'>You have completed onboarding, you can start using Eden!</Text>
+            <Title level={2}><b>Congratulations, {fullname}</b></Title>
+            <Text type='secondary'>You have completed onboarding, you can start using Eden</Text>
           </Col>
         </Row>
       </Row><br />

@@ -4,6 +4,7 @@ let { Title, Text } = Typography;
 
 
 function Steptwo(props) {
+    let { onChange } = props;
     return (
         <>
             <Col span={24} align='middle'>
@@ -16,14 +17,18 @@ function Steptwo(props) {
                 label="Workspace Name"
                 name="workspace_name"
             >
-                <Input placeholder='Eden'/>
+                <Input placeholder='Eden' onChange={(event) => {
+                    onChange('workspacename', event.target.value, 'onchange');
+                }} />
             </Form.Item>
 
             <Form.Item
                 label={<><Text>Workspace URL </Text><Text type='secondary'>(optional)</Text></>}
                 name="workspace_url"
             >
-                <Input addonBefore='www.eden.com/' placeholder='example' />
+                <Input addonBefore='www.eden.com/' placeholder='example' onChange={(event) => {
+                    onChange('workspace_url', event.target.value, 'onchange');
+                }} />
             </Form.Item>
         </>
     )
