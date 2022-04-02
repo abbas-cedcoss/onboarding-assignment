@@ -1,17 +1,31 @@
 import React from 'react';
-import { Button, Card, Input } from 'antd'
+import { Typography, Input, Form, Col } from 'antd';
+let { Title, Text } = Typography;
+
 
 function Steptwo(props) {
     return (
-        <Card>
-            <label>Workspace Name</label>
-            <Input /><br /><br />
-            <label>Workspace URL</label>
-            <Input addonBefore='www.eden.com' /><br /><br />
-            <Button type='primary' onClick={() => {
-                props.onChange('currentStep', 2)
-            }} >Create workspace</Button>
-        </Card>
+        <>
+            <Col span={24} align='middle'>
+                <React.Fragment>
+                    <Title level={3}>Let's set up a home for all your work</Title>
+                    <Text type='secondary'>You can always create another workspace later</Text>
+                </React.Fragment>
+            </Col>
+            <Form.Item
+                label="Workspace Name"
+                name="workspace_name"
+            >
+                <Input placeholder='Eden'/>
+            </Form.Item>
+
+            <Form.Item
+                label={<><Text>Workspace URL </Text><Text type='secondary'>(optional)</Text></>}
+                name="workspace_url"
+            >
+                <Input addonBefore='www.eden.com/' placeholder='example' />
+            </Form.Item>
+        </>
     )
 }
 

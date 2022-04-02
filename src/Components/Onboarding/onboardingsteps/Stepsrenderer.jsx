@@ -6,7 +6,6 @@ const { Step } = Steps;
 function Stepsrenderer(props) {
 
     let { currentStep } = props;
-    console.log(props)
     return (
         <Steps current={currentStep}>
             <Step />

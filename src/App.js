@@ -6,8 +6,7 @@ import Signup from './Components/Signup/Signup';
 function App() {
   return (
     <Routes>
-      <Route path='*' element={<Navigate to={"/signup"} replace />} />
-      <Route path='/signup' element={<Signup />} />
+      <Route path='*' element={<Navigate to={"/registration"} replace />} />
       <Route path='/registration' element={<Onboarding />} />
     </Routes>
   );
